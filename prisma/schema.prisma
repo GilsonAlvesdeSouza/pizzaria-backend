@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String    @id @default(uuid())
+  name        String
+  email       String
+  password    String
+  created_At  DateTime? @default(now()) @map("created_at")
+  upadated_At DateTime? @default(now()) @map("updated_at")
+
+  @@map("users")
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  created_At  DateTime? @default(now()) @map("created_at")
+  upadated_At DateTime? @default(now()) @map("updated_at")
+  products    Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id          String     @id @default(uuid())
+  categoryId  String     @map("category_id")
+  name        String
+  price       String
+  description String
+  banner      String
+  created_At  DateTime?  @default(now()) @map("created_at")
+  upadated_At DateTime?  @default(now()) @map("updated_at")
+  Category    Category   @relation(fields: [categoryId], references: [id])
+  OrderIem    OrderIem[]
+
+  @@map("products")
+}
+
+model Order {
+  id          String     @id @default(uuid())
+  table       Int
+  status      Boolean    @default(false)
+  draft       Boolean    @default(true)
+  name        String?
+  created_At  DateTime?  @default(now()) @map("created_at")
+  upadated_At DateTime?  @default(now()) @map("updated_at")
+  order       OrderIem[]
+
+  @@map("Orders")
+}
+
+model OrderIem {
+  id        String @id @default(uuid())
+  orderId   String @map("order_id")
+  productId String @map("product_id")
+  amount    Int
+
+  created_At  DateTime? @default(now()) @map("created_at")
+  upadated_At DateTime? @default(now()) @map("updated_at")
+  Order       Order     @relation(fields: [orderId], references: [id])
+  Product     Product   @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
