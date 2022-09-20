@@ -41,8 +41,12 @@ class UserService {
     return { newUser };
   }
 
-  async detailUser() {
-    return { ok: true };
+  async detailUser(user_id: string) {
+    const user = await prismaClient.user.findUnique({
+      where: { id: user_id },
+      select: { id: true, name: true, password: true },
+    });
+    return user;
   }
 }
 

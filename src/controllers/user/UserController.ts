@@ -10,7 +10,8 @@ class UserController {
   }
 
   async detailUser(req: Request, res: Response) {
-    const detail = await userServices.detailUser();
+    const user_id = req.user_id;
+    const detail = await userServices.detailUser(user_id);
     return res.json(detail);
   }
 }
