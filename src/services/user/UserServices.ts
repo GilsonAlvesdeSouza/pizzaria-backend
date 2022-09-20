@@ -40,6 +40,10 @@ class UserService {
     });
     return { newUser };
   }
+
+  async detailUser() {
+    return { ok: true };
+  }
 }
 
 export { UserService };

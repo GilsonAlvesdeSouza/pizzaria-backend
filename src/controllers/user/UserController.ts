@@ -8,6 +8,11 @@ class UserController {
     const user = await userServices.save({ name, email, password });
     return res.json(user);
   }
+
+  async detailUser(req: Request, res: Response) {
+    const detail = await userServices.detailUser();
+    return res.json(detail);
+  }
 }
 
 export { UserController };
