@@ -1,16 +1,19 @@
 import prismaClient from "../../prisma";
 import { compare } from "bcryptjs";
-
+import { sign as sign } from "jsonwebtoken";
+import dotenv from "dotenv";
 interface AuthRequest {
   email: string;
   password: string;
 }
 
+dotenv.config();
+
 class AuthUserService {
   async auth({ email, password }: AuthRequest) {
     const user = await prismaClient.user.findFirst({
       where: { email },
-      select: { email: true, password: true },
+      select: { id: true, email: true, password: true, name: true },
     });
 
     if (!user) {
@@ -23,9 +26,19 @@ class AuthUserService {
       throw new Error("User/password incorrect.");
     }
 
-		
+    const token = sign(
+      {
+        name: user.name,
+        email: user.email,
+      },
+      process.env.JWT_SECRET as string,
+      {
+        subject: user.id,
+        expiresIn: "30d",
+      }
+    );
 
-    return { ok: true };
+    return { id: user.id, name: user.name, email: user.email, token };
   }
 }
 
