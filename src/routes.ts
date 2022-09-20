@@ -1,9 +1,11 @@
-import { Router, Request, Response } from "express";
-
+import { Router } from "express";
+import { UserController } from "./controllers/user/UserController";
+import { AuthUserController } from "./controllers/user/AuthUserController";
 const router = Router();
+const userController = new UserController();
+const authUserController = new AuthUserController();
 
-router.get("/teste", (req: Request, res: Response) => {
-  return res.send({ foo: "bar" });
-});
+router.post("/users", userController.store);
+router.post("/session", authUserController.auth);
 
 export { router };
