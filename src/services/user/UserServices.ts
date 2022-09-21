@@ -44,7 +44,7 @@ class UserService {
   async detailUser(user_id: string) {
     const user = await prismaClient.user.findUnique({
       where: { id: user_id },
-      select: { id: true, name: true, password: true },
+      select: { id: true, name: true, email: true },
     });
     return user;
   }
