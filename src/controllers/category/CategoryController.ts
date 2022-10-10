@@ -13,11 +13,9 @@ class CategoryController {
   async store(req: Request, res: Response) {
     const { name } = req.body;
     const lengthName = validator.isLength(name, { min: 3, max: undefined });
-
-    console.log(lengthName);
-
+    
     if (!lengthName) {
-      throw Error("the minimum size is 3");
+      throw new Error("the minimum size is 3");
     }
 
     const category = await categoryServices.save(name);

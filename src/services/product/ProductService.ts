@@ -1,0 +1,29 @@
+import prismaClient from "../../prisma";
+
+interface ProductRequest {
+  name: string;
+  price: string;
+  description: string;
+  banner: string;
+  categoryId: string;
+}
+
+class ProductService {
+  async save({ name, price, description, banner, categoryId }: ProductRequest) {
+    
+    const product = await prismaClient.product.create({
+      data: {
+        name,
+        price,
+        description,
+        banner,
+        categoryId
+      }
+
+    })
+    
+    return product
+  }
+}
+
+export { ProductService };

@@ -20,7 +20,7 @@ class AuthUserService {
       throw new Error("User/password incorrect.");
     }
 
-    const passwordMatch = compare(password, user.password);
+    const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
       throw new Error("User/password incorrect.");

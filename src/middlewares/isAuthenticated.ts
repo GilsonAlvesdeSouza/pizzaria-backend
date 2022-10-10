@@ -5,8 +5,6 @@ interface Payload {
   sub: string;
 }
 
-
-
 export function isAuthenticated(
   req: Request,
   res: Response,

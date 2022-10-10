@@ -25,5 +25,5 @@ server.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Server is running on Port => ${PORT}\nhttp://localhost:3000`);
+  console.log(`Server is running on Port => ${PORT}\nhttp://localhost:${PORT}`);
 });
