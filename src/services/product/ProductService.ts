@@ -10,6 +10,15 @@ interface ProductRequest {
 
 class ProductService {
 
+  async listByCategory(categoryId: string) {
+    const findByCategory = await prismaClient.product.findMany({
+      where: {
+        categoryId: categoryId
+      }
+    });
+    return findByCategory;
+  }
+
   async findAll() {
     const products = await prismaClient.product.findMany({
       select: {
@@ -17,8 +26,8 @@ class ProductService {
         description: true,
         price: true
       }
-    })
-    return products
+    });
+    return products;
   }
 
   async save({name, price, description, banner, categoryId}: ProductRequest) {
@@ -30,8 +39,8 @@ class ProductService {
         banner,
         categoryId
       }
-    })
-    return product
+    });
+    return product;
   }
 }
 

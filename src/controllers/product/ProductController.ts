@@ -7,7 +7,7 @@ const productService = new ProductService();
 class ProductController {
 
   async index(req: Request, res: Response) {
-    const products = await productService.findAll()
+    const products = await productService.findAll();
     return res.status(200).json(products);
   }
 
@@ -46,6 +46,13 @@ class ProductController {
       return res.status(201).json(product);
     }
   }
+
+  async listByCategory(req: Request, res: Response) {
+    const categoryId = req.query.categoryId as string;
+    const produtcs = await productService.listByCategory(categoryId);
+    return res.json(produtcs);
+  }
 }
+
 
 export {ProductController};
