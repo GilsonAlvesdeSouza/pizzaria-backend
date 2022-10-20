@@ -21,6 +21,7 @@ router.get("/users/me", isAuthenticated, userController.detailUser);
 router.get("/categories", isAuthenticated, categoryController.index);
 router.post("/categories", isAuthenticated, categoryController.store);
 
+router.get("/products", isAuthenticated, productController.index)
 router.post(
   "/products",
   isAuthenticated,

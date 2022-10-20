@@ -9,8 +9,19 @@ interface ProductRequest {
 }
 
 class ProductService {
-  async save({ name, price, description, banner, categoryId }: ProductRequest) {
-    
+
+  async findAll() {
+    const products = await prismaClient.product.findMany({
+      select: {
+        name: true,
+        description: true,
+        price: true
+      }
+    })
+    return products
+  }
+
+  async save({name, price, description, banner, categoryId}: ProductRequest) {
     const product = await prismaClient.product.create({
       data: {
         name,
@@ -19,11 +30,9 @@ class ProductService {
         banner,
         categoryId
       }
-
     })
-    
     return product
   }
 }
 
-export { ProductService };
+export {ProductService};
