@@ -37,5 +37,6 @@ router.get(
 );
 
 router.post("/orders", isAuthenticated, orderController.store);
+router.delete("/orders", isAuthenticated, orderController.delete);
 
 export { router };

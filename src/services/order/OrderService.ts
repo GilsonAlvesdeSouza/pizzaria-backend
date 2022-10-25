@@ -19,5 +19,14 @@ class OrderService {
     });
     return order;
   }
+
+  async remove(orderId: string) {
+    const orderRemove = await prismaClient.order.delete({
+      where: {
+        id: orderId,
+      },
+    });
+    return orderRemove;
+  }
 }
 export { OrderService };

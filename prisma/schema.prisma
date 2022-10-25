@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -48,7 +45,7 @@ model Product {
 
 model Order {
   id          String     @id @default(uuid())
-  table       Int
+  table       Int        @unique
   status      Boolean    @default(false)
   draft       Boolean    @default(true)
   name        String?
@@ -60,11 +57,10 @@ model Order {
 }
 
 model OrderIem {
-  id        String @id @default(uuid())
-  orderId   String @map("order_id")
-  productId String @map("product_id")
-  amount    Int
-
+  id          String    @id @default(uuid())
+  orderId     String    @map("order_id")
+  productId   String    @map("product_id")
+  amount      Int
   created_At  DateTime? @default(now()) @map("created_at")
   upadated_At DateTime? @default(now()) @map("updated_at")
   Order       Order     @relation(fields: [orderId], references: [id])
