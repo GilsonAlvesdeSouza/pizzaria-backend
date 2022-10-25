@@ -1,4 +1,4 @@
-import { Request, response, Response } from "express";
+import { Request, Response } from "express";
 import { OrderService } from "../../services/order/OrderService";
 
 const orderService = new OrderService();
@@ -29,6 +29,14 @@ class OrderController {
     });
 
     return res.status(200).json(orderIemAdd);
+  }
+
+  async deleteItem(req: Request, res: Response) {
+    const id = req.query.item_id as string;
+
+    const deleteItem = await orderService.removeOrderItem(id);
+
+    return res.status(200).json(deleteItem);
   }
 }
 

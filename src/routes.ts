@@ -39,5 +39,10 @@ router.get(
 router.post("/orders", isAuthenticated, orderController.store);
 router.delete("/orders", isAuthenticated, orderController.delete);
 router.post("/orders/add/item", isAuthenticated, orderController.storeItem);
+router.delete(
+  "/orders/remove/item",
+  isAuthenticated,
+  orderController.deleteItem
+);
 
 export { router };
