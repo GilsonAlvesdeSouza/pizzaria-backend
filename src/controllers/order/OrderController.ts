@@ -46,6 +46,12 @@ class OrderController {
 
     return res.status(200).json(sendOrder);
   }
+
+  async listOrdersOutOfDraft(req: Request, res: Response) {
+    const list = await orderService.listOrdersOutOfDraft();
+
+    return res.status(200).json(list);
+  }
 }
 
 export { OrderController };

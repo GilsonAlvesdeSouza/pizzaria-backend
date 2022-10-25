@@ -19,8 +19,11 @@ class OrderService {
         name,
       },
       select: {
-        table: true,
+        id: true,
         name: true,
+        draft: true,
+        status: true,
+        table: true,
       },
     });
     return order;
@@ -97,6 +100,19 @@ class OrderService {
       },
     });
     return sendOrder;
+  }
+
+  async listOrdersOutOfDraft() {
+    const list = await prismaClient.order.findMany({
+      where: {
+        draft: false,
+        status: false,
+      },
+      orderBy: {
+        created_At: "desc",
+      },
+    });
+    return list;
   }
 }
 export { OrderService };

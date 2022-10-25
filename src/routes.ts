@@ -44,6 +44,11 @@ router.delete(
   isAuthenticated,
   orderController.deleteItem
 );
-router.put("/orders/send", isAuthenticated, orderController.sendOrder)
+router.put("/orders/send", isAuthenticated, orderController.sendOrder);
+router.get(
+  "/orders/to-do",
+  isAuthenticated,
+  orderController.listOrdersOutOfDraft
+);
 
 export { router };
