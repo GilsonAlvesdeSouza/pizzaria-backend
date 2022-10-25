@@ -76,15 +76,27 @@ class OrderService {
       where: {
         id,
       },
-      select:{
+      select: {
         id: true,
         orderId: true,
         productId: true,
-        amount: true
-      }
+        amount: true,
+      },
     });
 
     return orderItemRemove;
+  }
+
+  async sendOrder(id: string) {
+    const sendOrder = await prismaClient.order.update({
+      where: {
+        id,
+      },
+      data: {
+        draft: false,
+      },
+    });
+    return sendOrder;
   }
 }
 export { OrderService };

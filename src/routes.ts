@@ -44,5 +44,6 @@ router.delete(
   isAuthenticated,
   orderController.deleteItem
 );
+router.put("/orders/send", isAuthenticated, orderController.sendOrder)
 
 export { router };

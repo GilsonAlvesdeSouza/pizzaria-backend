@@ -38,6 +38,14 @@ class OrderController {
 
     return res.status(200).json(deleteItem);
   }
+
+  async sendOrder(req: Request, res: Response) {
+    let { order_id } = req.body;
+
+    const sendOrder = await orderService.sendOrder(order_id);
+
+    return res.status(200).json(sendOrder);
+  }
 }
 
 export { OrderController };
