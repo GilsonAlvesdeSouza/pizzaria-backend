@@ -127,5 +127,17 @@ class OrderService {
     });
     return orderDetail;
   }
+
+  async finishOrder(id: string) {
+    const orderFinish = await prismaClient.order.update({
+      where: {
+        id,
+      },
+      data: {
+        status: true,
+      },
+    });
+    return orderFinish;
+  }
 }
 export { OrderService };

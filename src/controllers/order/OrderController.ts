@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import prismaClient from "../../prisma";
 import { OrderService } from "../../services/order/OrderService";
 
 const orderService = new OrderService();
@@ -59,6 +60,14 @@ class OrderController {
     const ordersDetail = await orderService.detailOrder(id);
 
     return res.status(200).json(ordersDetail);
+  }
+
+  async finishOrder(req: Request, res: Response) {
+    let { order_id } = req.body;
+
+    const finishOrder = await orderService.finishOrder(order_id);
+
+    return res.status(200).json(finishOrder);
   }
 }
 

@@ -51,5 +51,6 @@ router.get(
   orderController.listOrdersOutOfDraft
 );
 router.get("/orders/detail", isAuthenticated, orderController.detailOrder);
+router.put("/orders/finish", isAuthenticated, orderController.finishOrder);
 
 export { router };
