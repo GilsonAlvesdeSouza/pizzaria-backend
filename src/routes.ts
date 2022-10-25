@@ -1,11 +1,12 @@
-import {Router} from "express";
+import { Router } from "express";
 import multer from "multer";
 import uploadConfig from "./config/multer";
-import {UserController} from "./controllers/user/UserController";
-import {AuthUserController} from "./controllers/user/AuthUserController";
-import {isAuthenticated} from "./middlewares/isAuthenticated";
-import {CategoryController} from "./controllers/category/CategoryController";
-import {ProductController} from "./controllers/product/ProductController";
+import { UserController } from "./controllers/user/UserController";
+import { AuthUserController } from "./controllers/user/AuthUserController";
+import { isAuthenticated } from "./middlewares/isAuthenticated";
+import { CategoryController } from "./controllers/category/CategoryController";
+import { ProductController } from "./controllers/product/ProductController";
+import { OrderController } from "./controllers/order/OrderController";
 
 const router = Router();
 const upload = multer(uploadConfig.upload("products"));
@@ -13,6 +14,7 @@ const userController = new UserController();
 const authUserController = new AuthUserController();
 const categoryController = new CategoryController();
 const productController = new ProductController();
+const orderController = new OrderController();
 
 router.post("/users", userController.store);
 router.post("/session", authUserController.auth);
@@ -28,6 +30,12 @@ router.post(
   upload.single("file"),
   productController.store
 );
-router.get("/products/category", isAuthenticated, productController.listByCategory);
+router.get(
+  "/products/category",
+  isAuthenticated,
+  productController.listByCategory
+);
 
-export {router};
+router.post("/orders", isAuthenticated, orderController.store);
+
+export { router };
