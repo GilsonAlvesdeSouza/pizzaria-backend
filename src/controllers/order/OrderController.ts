@@ -1,5 +1,4 @@
 import { Request, response, Response } from "express";
-import { request } from "http";
 import { OrderService } from "../../services/order/OrderService";
 
 const orderService = new OrderService();
@@ -18,6 +17,18 @@ class OrderController {
     const orderRemove = await orderService.remove(orderId);
 
     return res.status(200).json(orderRemove);
+  }
+
+  async storeItem(req: Request, res: Response) {
+    const { order_id, product_id, amount } = req.body;
+
+    const orderIemAdd = await orderService.addOrderItem({
+      orderId: order_id,
+      productId: product_id,
+      amount: parseInt(amount),
+    });
+
+    return res.status(200).json(orderIemAdd);
   }
 }
 
