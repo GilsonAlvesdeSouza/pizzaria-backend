@@ -114,5 +114,18 @@ class OrderService {
     });
     return list;
   }
+
+  async detailOrder(id: string) {
+    const orderDetail = await prismaClient.orderIem.findMany({
+      where: {
+        orderId: id,
+      },
+      include: {
+        Product: true,
+        Order: true,
+      },
+    });
+    return orderDetail;
+  }
 }
 export { OrderService };

@@ -50,5 +50,6 @@ router.get(
   isAuthenticated,
   orderController.listOrdersOutOfDraft
 );
+router.get("/orders/detail", isAuthenticated, orderController.detailOrder);
 
 export { router };

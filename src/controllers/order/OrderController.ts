@@ -52,6 +52,14 @@ class OrderController {
 
     return res.status(200).json(list);
   }
+
+  async detailOrder(req: Request, res: Response) {
+    let id = req.query.order_id as string;
+
+    const ordersDetail = await orderService.detailOrder(id);
+
+    return res.status(200).json(ordersDetail);
+  }
 }
 
 export { OrderController };
