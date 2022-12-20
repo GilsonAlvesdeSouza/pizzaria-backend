@@ -1,24 +1,27 @@
-import express, {NextFunction, Request, Response} from "express";
+import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import cors from "cors";
 import dotenv from "dotenv";
-import {router} from "./routes";
+import { router } from "./routes";
 import path from "path";
 
 dotenv.config();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3333;
 const server = express();
 
 server.use(express.json());
 server.use(cors());
 server.use(router);
 
-server.use("/products", express.static(path.resolve(__dirname, '../public/assets/img/products')))
+server.use(
+  "/products",
+  express.static(path.resolve(__dirname, "../public/assets/img/products"))
+);
 
 server.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof Error) {
-    return res.status(400).json({error: err.message});
+    return res.status(400).json({ error: err.message });
   }
 
   return res.status(500).json({
